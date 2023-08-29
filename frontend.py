@@ -1,8 +1,8 @@
-import tkinter as tk
+from tkinter import Button, Tk, Label
 from tkinter import ttk
 
 class Frontend:
-    def __init__(self, root):
+    def _init_(self, root):
         self.root = root
         self.root.title("Sistema de Interação do Usuário")
         self.root.geometry("400x300")
@@ -26,37 +26,55 @@ class Frontend:
         self.create_tab4_content()
 
     def create_tab1_content(self):
-        # Tab 1: Processamento de Imagem e Texto
-        label = tk.Label(self.tab1, text="Processamento de Imagem e Texto", font=("Helvetica", 12))
+        label = Label(self.tab1, text="Processamento de Imagem e Texto", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implementar os elementos da interface para o processamento de imagem e texto
+        # Botão de processamento de imagem e texto
+        process_button = Button(self.tab1, text="Processar", command=self.process_image_text)
+        process_button.pack()
 
     def create_tab2_content(self):
-        # Tab 2: Localização Indoor com Wi-Fi
-        label = tk.Label(self.tab2, text="Localização Indoor com Wi-Fi", font=("Helvetica", 12))
+        label = Label(self.tab2, text="Localização Indoor com Wi-Fi", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implementar os elementos da interface para a localização indoor com Wi-Fi
+        # Botão de localização indoor com Wi-Fi
+        locate_button = Button(self.tab2, text="Localizar", command=self.locate_wifi)
+        locate_button.pack()
 
     def create_tab3_content(self):
-        # Tab 3: Identificação de Imagens via Câmera
-        label = tk.Label(self.tab3, text="Identificação de Imagens via Câmera", font=("Helvetica", 12))
+        label = Label(self.tab3, text="Identificação de Imagens via Câmera", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implementar os elementos da interface para a identificação de imagens via câmera
+        # Botão de identificação de imagens via câmera
+        identify_button = Button(self.tab3, text="Identificar", command=self.identify_camera_image)
+        identify_button.pack()
 
     def create_tab4_content(self):
-        # Tab 4: Banco de Dados e Entrega
-        label = tk.Label(self.tab4, text="Banco de Dados e Entrega", font=("Helvetica", 12))
+        label = Label(self.tab4, text="Banco de Dados e Entrega", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implementar os elementos da interface para o banco de dados e sistema de entrega
+        # Botão de acesso ao banco de dados e sistema de entrega
+        database_button = Button(self.tab4, text="Acessar Banco de Dados", command=self.access_database)
+        database_button.pack()
+
+    # Funções associadas aos botões
+    def process_image_text(self):
+        print("Processamento de imagem e texto")
+
+    def locate_wifi(self):
+        print("Localização indoor com Wi-Fi")
+
+    def identify_camera_image(self):
+        print("Identificação de imagem via câmera")
+
+    def access_database(self):
+        print("Acesso ao banco de dados e sistema de entrega")
 
 def main():
-    root = tk.Tk()
-    app = Frontend(root)
+    root = Tk()
+    app = Frontend()
+
     root.mainloop()
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()

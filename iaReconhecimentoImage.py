@@ -1,5 +1,7 @@
+import speech_recognition as sr
+from flask import jsonify, app
 from gtts import gTTS
-import os
+
 
 class IAReconhecimentoImagem:
     def __init__(self, modelo_ia):
@@ -11,46 +13,57 @@ class IAReconhecimentoImagem:
         return objetos_identificados
 
 
+def ModeloIA():
+    pass
+
+
+def capturar_imagem():
+    # Simulação de captura de imagem a partir da câmera
+    imagem_capturada = "caminho_da_imagem.jpg"  # Substituir pelo caminho real da imagem
+    return imagem_capturada
+
+
 class SistemaIdentificacaoImagens:
     def __init__(self):
         self.ia_reconhecimento = IAReconhecimentoImagem(ModeloIA())  # Substituir pelo modelo real de IA
 
-    def capturar_imagem(self):
-        # Simulação de captura de imagem a partir da câmera
-        imagem_capturada = "caminho_da_imagem.jpg"  # Substituir pelo caminho real da imagem
-        return imagem_capturada
-
     def executar_identificacao(self):
-        imagem = self.capturar_imagem()
+        imagem = capturar_imagem()
         objetos_identificados = self.ia_reconhecimento.processar_imagem(imagem)
         return objetos_identificados
 
 
-def informar_em_voz(texto):
+@app.route('/identify-objects', methods=['POST'])
+def identify_objects():
+    try:
+        r = sr.Recognizer()
+
+        with sr.AudioFile("input_audio.wav") as source:
+            audio = r.record(source)
+
+        recognized_text = r.recognize_google(audio, language="pt-BR")
+
+        sistema_imagens = SistemaIdentificacaoImagens()
+        objetos_identificados = sistema_imagens.executar_identificacao()
+
+        if objetos_identificados:
+            objetos_texto = ', '.join(objetos_identificados)
+            response_text = f"Objetos identificados: {objetos_texto}"
+        else:
+            response_text = "Nenhum objeto identificado."
+
+        response_audio_path = "output_audio.mp3"
+        informar_em_voz(response_text, response_audio_path)
+
+        return jsonify({"message": "Identification and voice response complete!"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+def informar_em_voz(texto, output_path):
     tts = gTTS(text=texto, lang='pt')
-    tts.save("output.mp3")
-    os.system("mpg321 output.mp3")  # ter o mpg321 instalado para reprodução de áudio
+    tts.save(output_path)
 
 
-# Classe simulando o modelo de IA de reconhecimento de imagem
-class ModeloIA:
-    def processar_imagem(self, imagem):
-        # Simulação de reconhecimento de imagem pela IA
-        return ["gato", "sofá"]
-
-
-# Criando uma instância do sistema de identificação de imagens
-sistema_imagens = SistemaIdentificacaoImagens()
-
-# Executando a identificação de objetos na imagem capturada
-objetos_identificados = sistema_imagens.executar_identificacao()
-
-# Exibindo os objetos identificados
-print("Objetos identificados:", objetos_identificados)
-
-
-# Informar em voz os produtos
-if objetos_identificados:
-    informar_em_voz(f"Objetos identificados: {', '.join(objetos_identificados)}")
-else:
-    informar_em_voz("Nenhum objeto identificado.")
+if _name_ == '_main_':
+    app.run(debug=True)
