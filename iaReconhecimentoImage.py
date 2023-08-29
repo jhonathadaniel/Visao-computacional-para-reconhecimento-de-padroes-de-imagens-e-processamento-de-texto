@@ -1,3 +1,6 @@
+from gtts import gTTS
+import os
+
 class IAReconhecimentoImagem:
     def __init__(self, modelo_ia):
         self.modelo_ia = modelo_ia
@@ -23,6 +26,12 @@ class SistemaIdentificacaoImagens:
         return objetos_identificados
 
 
+def informar_em_voz(texto):
+    tts = gTTS(text=texto, lang='pt')
+    tts.save("output.mp3")
+    os.system("mpg321 output.mp3")  # Certifique-se de ter o mpg321 instalado para reprodução de áudio
+
+
 # Classe simulando o modelo de IA de reconhecimento de imagem
 class ModeloIA:
     def processar_imagem(self, imagem):
@@ -38,3 +47,10 @@ objetos_identificados = sistema_imagens.executar_identificacao()
 
 # Exibindo os objetos identificados
 print("Objetos identificados:", objetos_identificados)
+
+
+# Informar em voz os produtos
+if objetos_identificados:
+    informar_em_voz(f"Objetos identificados: {', '.join(objetos_identificados)}")
+else:
+    informar_em_voz("Nenhum objeto identificado.")
