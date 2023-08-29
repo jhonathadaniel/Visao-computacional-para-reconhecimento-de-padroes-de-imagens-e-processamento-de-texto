@@ -13,11 +13,11 @@ class IAReconhecimentoImagem:
 
 class SistemaIdentificacaoImagens:
     def __init__(self):
-        self.ia_reconhecimento = IAReconhecimentoImagem(ModeloIA())  # Substitua pelo modelo real de IA
+        self.ia_reconhecimento = IAReconhecimentoImagem(ModeloIA())  # Substituir pelo modelo real de IA
 
     def capturar_imagem(self):
         # Simulação de captura de imagem a partir da câmera
-        imagem_capturada = "caminho_da_imagem.jpg"  # Substitua pelo caminho real da imagem
+        imagem_capturada = "caminho_da_imagem.jpg"  # Substituir pelo caminho real da imagem
         return imagem_capturada
 
     def executar_identificacao(self):
@@ -29,7 +29,7 @@ class SistemaIdentificacaoImagens:
 def informar_em_voz(texto):
     tts = gTTS(text=texto, lang='pt')
     tts.save("output.mp3")
-    os.system("mpg321 output.mp3")  # Certifique-se de ter o mpg321 instalado para reprodução de áudio
+    os.system("mpg321 output.mp3")  # ter o mpg321 instalado para reprodução de áudio
 
 
 # Classe simulando o modelo de IA de reconhecimento de imagem
