@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import ttk
 
 class Frontend:
@@ -31,28 +30,28 @@ class Frontend:
         label = tk.Label(self.tab1, text="Processamento de Imagem e Texto", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implemente os elementos da interface para o processamento de imagem e texto
+        # Implementar os elementos da interface para o processamento de imagem e texto
 
     def create_tab2_content(self):
         # Tab 2: Localização Indoor com Wi-Fi
         label = tk.Label(self.tab2, text="Localização Indoor com Wi-Fi", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implemente os elementos da interface para a localização indoor com Wi-Fi
+        # Implementar os elementos da interface para a localização indoor com Wi-Fi
 
     def create_tab3_content(self):
         # Tab 3: Identificação de Imagens via Câmera
         label = tk.Label(self.tab3, text="Identificação de Imagens via Câmera", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implemente os elementos da interface para a identificação de imagens via câmera
+        # Implementar os elementos da interface para a identificação de imagens via câmera
 
     def create_tab4_content(self):
         # Tab 4: Banco de Dados e Entrega
         label = tk.Label(self.tab4, text="Banco de Dados e Entrega", font=("Helvetica", 12))
         label.pack(pady=10)
 
-        # Implemente os elementos da interface para o banco de dados e sistema de entrega
+        # Implementar os elementos da interface para o banco de dados e sistema de entrega
 
 def main():
     root = tk.Tk()
