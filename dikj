@@ -1,0 +1,32 @@
+import networkx as nx
+
+# Criar um grafo direcionado para representar a loja
+G = nx.DiGraph()
+
+# Mapeamento da localização dos produtos
+localizacao_produtos = {
+    'Arroz': ('A1', 'Corredor 1'),
+    'Feijão': ('B3', 'Corredor 2'),
+    # Adicione mais produtos e localizações aqui
+}
+
+# Função para encontrar a melhor rota usando o algoritmo de Dijkstra
+def encontrar_melhor_rota(produto):
+    origem = 'Ponto de Partida'  # Defina o ponto de partida
+    destino = localizacao_produtos.get(produto, ('Desconhecido', 'Desconhecido'))
+
+    G.add_edge(origem, destino[0], weight=1)  # Adicione aresta com peso 1 para a localização do produto
+    rota = nx.shortest_path(G, source=origem, target=destino[0], weight='weight', method='dijkstra')
+    G.remove_edge(origem, destino[0])  # Remova a aresta após a busca
+
+    return rota
+
+# Exemplo de uso
+produto_a_buscar = 'Arroz'
+melhor_rota = encontrar_melhor_rota(produto_a_buscar)
+
+if melhor_rota:
+    print(f"Melhor rota para encontrar {produto_a_buscar}:")
+    print(melhor_rota)
+else:
+    print(f"{produto_a_buscar} não foi encontrado na loja.")
